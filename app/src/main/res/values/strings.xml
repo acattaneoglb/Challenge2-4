@@ -2,7 +2,31 @@
 <resources>
 
     <string name="app_name">VirtuoZoo</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="brown_bear_name">Brown bear</string>
+    <string name="grizzly_bear_name">Grizzly bear</string>
+    <string name="wombat_name">Wombat</string>
+    <string name="gecko_name">Gecko</string>
+    <string name="coral_snake_name">Coral snake</string>
+    <string name="tortoise_name">Tortoise</string>
+
+    <string name="description_title">Description:</string>
+    <string name="brown_bear_description">Large bear of the Ursidae family.
+        Can weigh 130–700 kg (300–1500 pounds).</string>
+    <string name="grizzly_bear_description">Subspecies of Brown Bear.
+        Adult males weigh on average 180–360 kg (400–790 lb).</string>
+    <string name="wombat_description">Marsupial in the family Vombatide.
+        It is a medium sized animal that makes a burrow by digging holes in the ground.</string>
+    <string name="gecko_description">Small to middle size lizards.
+        Many kinds of geckos can walk on walls, windows and ceilings.</string>
+    <string name="coral_snake_description">A large group of elapid snakes.
+        Coral snakes have notable red, yellow/white, and black colored banding.
+        Coral snakes possess a pair of small fangs to deliver their venom.</string>
+    <string name="tortoise_description">A tortoise or land turtle is a reptile of the order Testudines that lives on land.
+        Like their aquatic cousins, the sea turtles, tortoises are shielded from predators by a shell.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="habitat_title">Habitat:</string>
+    <string name="brown_bear_habitat">Mostly across northern North America and Eurasia.</string>
 
 </resources>
