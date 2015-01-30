@@ -3,6 +3,7 @@ package co.mobilemakers.virtuozoo;
 import android.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -135,6 +136,17 @@ public class MainActivity extends ActionBarActivity {
         showAnimal();
     }
 
+    protected void previousAnimal() {
+        int previousIndex = animalShowing.ordinal()-1;
+        if (previousIndex < 0) {
+            previousIndex = AnimalEnum.values().length-1;
+        }
+
+        animalShowing = AnimalEnum.values()[previousIndex];
+
+        showAnimal();
+    }
+
     protected void initNextButton() {
         mNextButton = (Button)findViewById(R.id.button_next);
         mNextButton.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +155,18 @@ public class MainActivity extends ActionBarActivity {
                 nextAnimal();
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch(keyCode){
+            case KeyEvent.KEYCODE_BACK:
+                if (animalShowing.ordinal() == 0)
+                    break;
+                previousAnimal();
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

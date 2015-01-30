@@ -33,10 +33,14 @@
         android:layout_gravity="bottom">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/next"
             android:id="@+id/button_next"
-            android:layout_gravity="right|center_vertical" />
+            android:layout_gravity="right|center_vertical"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_next_shape" />
     </FrameLayout>
 </FrameLayout>
