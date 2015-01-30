@@ -1,11 +1,12 @@
 package co.mobilemakers.virtuozoo;
 
 import android.app.FragmentManager;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.EnumMap;
 
@@ -17,8 +18,11 @@ public class MainActivity extends ActionBarActivity {
     AnimalPictureFragment mAnimalPictureFragment;
     AnimalDescriptionFragment mAnimalDescriptionFragment;
 
+    Button mNextButton;
+
     EnumMap<AnimalEnum, String> animalNames;
-    EnumMap<AnimalEnum, Drawable> animalPictures;
+    //EnumMap<AnimalEnum, Drawable> animalPictures; // Replaced due to excessive memory use
+    EnumMap<AnimalEnum, Integer> animalPictures;
     EnumMap<AnimalEnum, String> animalHabitats;
     EnumMap<AnimalEnum, String> animalDescriptions;
 
@@ -38,12 +42,26 @@ public class MainActivity extends ActionBarActivity {
         mAnimalDescriptionFragment = new AnimalDescriptionFragment();
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.picture_container, mAnimalPictureFragment)
-                .commit();
-        fragmentManager.beginTransaction()
-                .add(R.id.description_container, mAnimalDescriptionFragment)
-                .commit();
+        if (fragmentManager.findFragmentById(R.id.picture_container) != null) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.picture_container, mAnimalPictureFragment)
+                    .commit();
+        }
+        else {
+            fragmentManager.beginTransaction()
+                    .add(R.id.picture_container, mAnimalPictureFragment)
+                    .commit();
+        }
+        if (fragmentManager.findFragmentById(R.id.description_container) != null) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.description_container, mAnimalDescriptionFragment)
+                    .commit();
+        }
+        else {
+            fragmentManager.beginTransaction()
+                    .add(R.id.description_container, mAnimalDescriptionFragment)
+                    .commit();
+        }
     }
 
     private void initAnimals() {
@@ -58,23 +76,38 @@ public class MainActivity extends ActionBarActivity {
 
         animalPictures = new EnumMap<>(AnimalEnum.class);
 
-        animalPictures.put(AnimalEnum.BROWN_BEAR, getResources().getDrawable(R.drawable.brown_bear));
+        animalPictures.put(AnimalEnum.BROWN_BEAR, R.drawable.brown_bear);
+        animalPictures.put(AnimalEnum.GRIZZLY_BEAR, R.drawable.grizzly_bear);
+        animalPictures.put(AnimalEnum.WOMBAT, R.drawable.wombat);
+        animalPictures.put(AnimalEnum.GECKO, R.drawable.gecko);
+        animalPictures.put(AnimalEnum.CORAL_SNAKE, R.drawable.coral_snake);
+        animalPictures.put(AnimalEnum.TORTOISE, R.drawable.tortoise);
 
         animalDescriptions = new EnumMap<>(AnimalEnum.class);
 
         animalDescriptions.put(AnimalEnum.BROWN_BEAR, getResources().getString(R.string.brown_bear_description));
+        animalDescriptions.put(AnimalEnum.GRIZZLY_BEAR, getResources().getString(R.string.grizzly_bear_description));
+        animalDescriptions.put(AnimalEnum.WOMBAT, getResources().getString(R.string.wombat_description));
+        animalDescriptions.put(AnimalEnum.GECKO, getResources().getString(R.string.gecko_description));
+        animalDescriptions.put(AnimalEnum.CORAL_SNAKE, getResources().getString(R.string.coral_snake_description));
+        animalDescriptions.put(AnimalEnum.TORTOISE, getResources().getString(R.string.tortoise_description));
 
         animalHabitats = new EnumMap<>(AnimalEnum.class);
 
         animalHabitats.put(AnimalEnum.BROWN_BEAR, getResources().getString(R.string.brown_bear_habitat));
+        animalHabitats.put(AnimalEnum.GRIZZLY_BEAR, getResources().getString(R.string.grizzly_bear_habitat));
+        animalHabitats.put(AnimalEnum.WOMBAT, getResources().getString(R.string.wombat_habitat));
+        animalHabitats.put(AnimalEnum.GECKO, getResources().getString(R.string.gecko_habitat));
+        animalHabitats.put(AnimalEnum.CORAL_SNAKE, getResources().getString(R.string.coral_snake_habitat));
+        animalHabitats.put(AnimalEnum.TORTOISE, getResources().getString(R.string.tortoise_habitat));
 
-        //showAnimal(AnimalEnum.BROWN_BEAR);
         animalShowing = AnimalEnum.BROWN_BEAR;
     }
 
     public void showAnimalImage() {
         if (animalShowing != null) {
-            mAnimalPictureFragment.setPicture(animalPictures.get(animalShowing));
+            mAnimalPictureFragment.setPicture(
+                    getResources().getDrawable(animalPictures.get(animalShowing)));
             mAnimalPictureFragment.setName(animalNames.get(animalShowing));
         }
     }
@@ -86,12 +119,31 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    /*
     public void showAnimal() {
         showAnimalImage();
         showAnimalDescription();
     }
-    */
+
+    protected void nextAnimal() {
+        int nextIndex = animalShowing.ordinal()+1;
+        if (nextIndex >= AnimalEnum.values().length) {
+            nextIndex = 0;
+        }
+
+        animalShowing = AnimalEnum.values()[nextIndex];
+
+        showAnimal();
+    }
+
+    protected void initNextButton() {
+        mNextButton = (Button)findViewById(R.id.button_next);
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextAnimal();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +153,8 @@ public class MainActivity extends ActionBarActivity {
         initFragments();
 
         initAnimals();
+
+        initNextButton();
     }
 
 
@@ -138,6 +192,6 @@ public class MainActivity extends ActionBarActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         animalShowing = AnimalEnum.valueOf(savedInstanceState.getString(KEY_SHOWING));
-        //showAnimal();
+        showAnimal();
     }
 }

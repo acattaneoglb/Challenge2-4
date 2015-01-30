@@ -28,5 +28,16 @@
 
     <string name="habitat_title">Habitat:</string>
     <string name="brown_bear_habitat">Mostly across northern North America and Eurasia.</string>
+    <string name="grizzly_bear_habitat">The species is now found in Alaska, south through much of western Canada,
+        and into portions of the northwestern United States (including Idaho, Montana, Washington, and Wyoming),
+        extending as far south as Yellowstone and Grand Teton National Parks, but is most commonly found in Canada.</string>
+    <string name="wombat_habitat">Australian eucalyptus forests.</string>
+    <string name="gecko_habitat">Species occur globally and are particularly species-rich in tropical areas.</string>
+    <string name="coral_snake_habitat">New World coral snakes exist in the southern range of many temperate U.S. states.
+        Coral snakes are found in scattered localities in the southern coastal plain from North Carolina to Louisiana,
+        including all of Florida.</string>
+    <string name="tortoise_habitat">Diverse places.</string>
+
+    <string name="next">Next</string>
 
 </resources>
